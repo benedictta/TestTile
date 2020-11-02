@@ -1,0 +1,140 @@
+[gd_scene load_steps=41 format=2]
+
+[ext_resource path="res://GAME ASSETS/idle_animation/idle00.png" type="Texture" id=1]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle01.png" type="Texture" id=2]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle02.png" type="Texture" id=3]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle03.png" type="Texture" id=4]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle04.png" type="Texture" id=5]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle05.png" type="Texture" id=6]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle06.png" type="Texture" id=7]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle07.png" type="Texture" id=8]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle08.png" type="Texture" id=9]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle09.png" type="Texture" id=10]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle10.png" type="Texture" id=11]
+[ext_resource path="res://GAME ASSETS/idle_animation/idle11.png" type="Texture" id=12]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk0.png" type="Texture" id=13]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk1.png" type="Texture" id=14]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk2.png" type="Texture" id=15]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk3.png" type="Texture" id=16]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk4.png" type="Texture" id=17]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk5.png" type="Texture" id=18]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk6.png" type="Texture" id=19]
+[ext_resource path="res://GAME ASSETS/walk_animation/my walk7.png" type="Texture" id=20]
+[ext_resource path="res://GAME ASSETS/die_anim/die_4.png" type="Texture" id=21]
+[ext_resource path="res://GAME ASSETS/die_anim/die_5.png" type="Texture" id=22]
+[ext_resource path="res://GAME ASSETS/die_anim/die_6.png" type="Texture" id=23]
+[ext_resource path="res://GAME ASSETS/die_anim/die_7.png" type="Texture" id=24]
+[ext_resource path="res://GAME ASSETS/die_anim/die_0.png" type="Texture" id=25]
+[ext_resource path="res://GAME ASSETS/die_anim/die_1.png" type="Texture" id=26]
+[ext_resource path="res://GAME ASSETS/die_anim/die_2.png" type="Texture" id=27]
+[ext_resource path="res://GAME ASSETS/die_anim/die_3.png" type="Texture" id=28]
+[ext_resource path="res://scene/AnimatedSprite.gd" type="Script" id=29]
+[ext_resource path="res://Assets/soundtrack/play.wav" type="AudioStream" id=30]
+[ext_resource path="res://Assets/soundtrack/pain.wav" type="AudioStream" id=31]
+[ext_resource path="res://Assets/soundtrack/gameover.wav" type="AudioStream" id=32]
+[ext_resource path="res://Assets/soundtrack/intense.wav" type="AudioStream" id=33]
+[ext_resource path="res://scene/TimerHud.gd" type="Script" id=34]
+[ext_resource path="res://Assets/Font/RobotoMono-Bold.ttf" type="DynamicFontData" id=35]
+[ext_resource path="res://Assets/gameover_background.png" type="Texture" id=36]
+[ext_resource path="res://Assets/RETRY.png" type="Texture" id=37]
+[ext_resource path="res://Assets/QUIT.png" type="Texture" id=38]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "idle",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "walk",
+"speed": 19.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "die",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=2]
+size = 90
+font_data = ExtResource( 35 )
+
+[node name="AnimatedSprite" type="AnimatedSprite"]
+position = Vector2( 64, 64 )
+frames = SubResource( 1 )
+animation = "idle"
+frame = 3
+playing = true
+centered = false
+offset = Vector2( 0, 2 )
+script = ExtResource( 29 )
+speed = 256
+scene_to_load = "res://scene/play2.tscn"
+current_scene = "res://scene/Player.tscn"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 32, 32 )
+enabled = true
+
+[node name="SuddenTimer" type="Timer" parent="."]
+
+[node name="play" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 30 )
+
+[node name="pain" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 31 )
+
+[node name="gameover" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 32 )
+
+[node name="intense" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 33 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 34 )
+
+[node name="TimeLabel" type="Label" parent="HUD"]
+margin_left = 3.27841
+margin_top = -22.2651
+margin_right = 57.2784
+margin_bottom = 97.7349
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.909804, 0.32549, 0.32549, 1 )
+text = "0"
+
+[node name="GameOver" type="MarginContainer" parent="HUD"]
+margin_left = 190.0
+margin_top = 173.0
+margin_right = 814.0
+margin_bottom = 524.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="screen" type="TextureRect" parent="HUD/GameOver"]
+margin_right = 624.0
+margin_bottom = 351.0
+texture = ExtResource( 36 )
+stretch_mode = 1
+
+[node name="Retry" type="Button" parent="HUD/GameOver/screen"]
+margin_left = 69.6141
+margin_top = 197.132
+margin_right = 301.614
+margin_bottom = 307.132
+size_flags_horizontal = 3
+size_flags_vertical = 3
+icon = ExtResource( 37 )
+flat = true
+
+[node name="Quit" type="Button" parent="HUD/GameOver/screen"]
+margin_left = 330.202
+margin_top = 197.132
+margin_right = 562.202
+margin_bottom = 307.132
+icon = ExtResource( 38 )
+flat = true
+[connection signal="timeout" from="SuddenTimer" to="." method="_on_SuddenTimer_timeout"]
+[connection signal="pressed" from="HUD/GameOver/screen/Retry" to="." method="_on_Retry_pressed"]
+[connection signal="pressed" from="HUD/GameOver/screen/Quit" to="." method="_on_Quit_pressed"]
